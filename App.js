@@ -1,13 +1,14 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import Header from "./components/Header";
+import PickItem from "./components/PickItem";
 
 export default function App() {
   return (
     <View style={styles.container}>
       <Header />
 
-      {/* HEADER */}
+      <PickItem />
+
       {/* CHOICES WITH PICS AND BUTTONS */}
       {/* COMPUTER RANDOMIZER */}
       {/* GAME */}
