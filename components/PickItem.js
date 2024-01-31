@@ -2,10 +2,45 @@ import { Text, View, StyleSheet, Image, Button, Alert } from "react-native";
 import { useState } from "react";
 
 export default function PickItem() {
-  let [pick, setPick] = useState("");
+  const [pick, setPick] = useState("");
 
-  function userWeapon(value) {
-    setPick(value);
+  const [randomNumber, setRandomNumber] = useState(
+    Math.floor(Math.random() * 3)
+  );
+
+  const [computerPick, setComputerPick] = useState("");
+
+  const [winner, setWinner] = useState("");
+
+  function generateComputerNumber() {
+    setRandomNumber(Math.floor(Math.random() * 6));
+
+    randomNumber === 0 ? setComputerPick("Rock") : "";
+    randomNumber === 1 ? setComputerPick("Paper") : "";
+    randomNumber === 2 ? setComputerPick("Scissors") : "";
+    randomNumber === 3 ? setComputerPick("Rock") : "";
+    randomNumber === 4 ? setComputerPick("Paper") : "";
+    randomNumber === 5 ? setComputerPick("Scissors") : "";
+  }
+
+  function decideWinner() {
+    computerPick === "Rock" && pick === "Rock" ? setWinner("Draw!") : "";
+    computerPick === "Paper" && pick === "Rock" ? setWinner("Computer!") : "";
+    computerPick === "Scissors" && pick === "Rock" ? setWinner("You!") : "";
+
+    computerPick === "Rock" && pick === "Paper" ? setWinner("You!") : "";
+    computerPick === "Paper" && pick === "Paper" ? setWinner("Draw!") : "";
+    computerPick === "Scissors" && pick === "Paper"
+      ? setWinner("Computer!")
+      : "";
+
+    computerPick === "Rock" && pick === "Scissors"
+      ? setWinner("Computer!")
+      : "";
+    computerPick === "Paper" && pick === "Scissors" ? setWinner("You!") : "";
+    computerPick === "Scissors" && pick === "Scissors"
+      ? setWinner("Draw!")
+      : "";
   }
 
   return (
@@ -16,7 +51,11 @@ export default function PickItem() {
           <Button
             title="Rock"
             color="#6A8D73"
-            onPress={() => setPick("Rock")}
+            onPress={() => {
+              setPick("Rock");
+              generateComputerNumber();
+              decideWinner();
+            }}
           />
         </View>
         <View>
@@ -27,7 +66,10 @@ export default function PickItem() {
           <Button
             title="Paper"
             color="#6A8D73"
-            onPress={() => setPick("Paper")}
+            onPress={() => {
+              setPick("Paper");
+              generateComputerNumber();
+            }}
           />
         </View>
         <View>
@@ -38,11 +80,18 @@ export default function PickItem() {
           <Button
             title="Scissors"
             color="#6A8D73"
-            onPress={() => setPick("Scissors")}
+            onPress={() => {
+              setPick("Scissors");
+              generateComputerNumber();
+            }}
           />
         </View>
       </View>
       <Text>You choose: {pick}</Text>
+      <Button title="Play!" onPress={() => decideWinner()} />
+      <Text>Computer choose: {computerPick} </Text>
+
+      <Text>Winner: {winner}</Text>
     </View>
   );
 }
