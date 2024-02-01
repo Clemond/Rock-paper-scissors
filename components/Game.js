@@ -1,20 +1,19 @@
 import { Text, View, StyleSheet, Image, Button, Alert } from "react-native";
 import { useState } from "react";
+import { useEffect } from "react";
 
-export default function PickItem() {
+export default function Game() {
   const [pick, setPick] = useState("");
-
   const [randomNumber, setRandomNumber] = useState(
     Math.floor(Math.random() * 3)
   );
-
   const [computerPick, setComputerPick] = useState("");
-
   const [winner, setWinner] = useState("");
 
   function generateComputerNumber() {
-    setRandomNumber(Math.floor(Math.random() * 6));
+    setRandomNumber(Math.floor(Math.random() * 3));
 
+    //Dubbelt så många val för att det ska kännas mer "random"
     randomNumber === 0 ? setComputerPick("Rock") : "";
     randomNumber === 1 ? setComputerPick("Paper") : "";
     randomNumber === 2 ? setComputerPick("Scissors") : "";
@@ -27,7 +26,6 @@ export default function PickItem() {
     computerPick === "Rock" && pick === "Rock" ? setWinner("Draw!") : "";
     computerPick === "Paper" && pick === "Rock" ? setWinner("Computer!") : "";
     computerPick === "Scissors" && pick === "Rock" ? setWinner("You!") : "";
-
     computerPick === "Rock" && pick === "Paper" ? setWinner("You!") : "";
     computerPick === "Paper" && pick === "Paper" ? setWinner("Draw!") : "";
     computerPick === "Scissors" && pick === "Paper"
@@ -42,6 +40,13 @@ export default function PickItem() {
       ? setWinner("Draw!")
       : "";
   }
+
+  //useEffect använder jag för att decideWinner ska uppdateras varje gång
+  //sidan renderas om, på detta sätt kan winner alltid renderas direkt för
+  //spelaren.
+  useEffect(() => {
+    decideWinner();
+  });
 
   return (
     <View>
@@ -88,7 +93,6 @@ export default function PickItem() {
         </View>
       </View>
       <Text>You choose: {pick}</Text>
-      <Button title="Play!" onPress={() => decideWinner()} />
       <Text>Computer choose: {computerPick} </Text>
 
       <Text>Winner: {winner}</Text>

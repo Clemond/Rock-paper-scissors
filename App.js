@@ -1,17 +1,13 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import Header from "./components/Header";
-import PickItem from "./components/PickItem";
+import Game from "./components/Game";
 
 export default function App() {
   return (
     <View style={styles.container}>
       <Header />
 
-      <PickItem />
-
-      {/* CHOICES WITH PICS AND BUTTONS */}
-      {/* COMPUTER RANDOMIZER */}
-      {/* GAME */}
+      <Game />
 
       {/* WINNERCOUNT */}
       {/* PLAY AGAIN BUTTON */}
