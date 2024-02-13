@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 export default function Game() {
-  const [pick, setPick] = useState("");
+  const [userPick, setUserPick] = useState("");
   const [randomNumber, setRandomNumber] = useState(
     Math.floor(Math.random() * 3)
   );
@@ -23,20 +23,24 @@ export default function Game() {
   }
 
   function decideWinner() {
-    computerPick === "Rock" && pick === "Rock" ? setWinner("Draw!") : "";
-    computerPick === "Paper" && pick === "Rock" ? setWinner("Computer!") : "";
-    computerPick === "Scissors" && pick === "Rock" ? setWinner("You!") : "";
-    computerPick === "Rock" && pick === "Paper" ? setWinner("You!") : "";
-    computerPick === "Paper" && pick === "Paper" ? setWinner("Draw!") : "";
-    computerPick === "Scissors" && pick === "Paper"
+    computerPick === "Rock" && userPick === "Rock" ? setWinner("Draw!") : "";
+    computerPick === "Paper" && userPick === "Rock"
+      ? setWinner("Computer!")
+      : "";
+    computerPick === "Scissors" && userPick === "Rock" ? setWinner("You!") : "";
+    computerPick === "Rock" && userPick === "Paper" ? setWinner("You!") : "";
+    computerPick === "Paper" && userPick === "Paper" ? setWinner("Draw!") : "";
+    computerPick === "Scissors" && userPick === "Paper"
       ? setWinner("Computer!")
       : "";
 
-    computerPick === "Rock" && pick === "Scissors"
+    computerPick === "Rock" && userPick === "Scissors"
       ? setWinner("Computer!")
       : "";
-    computerPick === "Paper" && pick === "Scissors" ? setWinner("You!") : "";
-    computerPick === "Scissors" && pick === "Scissors"
+    computerPick === "Paper" && userPick === "Scissors"
+      ? setWinner("You!")
+      : "";
+    computerPick === "Scissors" && userPick === "Scissors"
       ? setWinner("Draw!")
       : "";
   }
@@ -54,10 +58,12 @@ export default function Game() {
         <View>
           <Image style={style.rock} source={require("../src/img/rock2.png")} />
           <Button
+            //Här skriver jag in en testID för att kunna få fram just denna knappen när jag testar i jest.
+            testID="button-test"
             title="Rock"
             color="#6A8D73"
             onPress={() => {
-              setPick("Rock");
+              setUserPick("Rock");
               generateComputerNumber();
               decideWinner();
             }}
@@ -72,7 +78,7 @@ export default function Game() {
             title="Paper"
             color="#6A8D73"
             onPress={() => {
-              setPick("Paper");
+              setUserPick("Paper");
               generateComputerNumber();
             }}
           />
@@ -86,15 +92,20 @@ export default function Game() {
             title="Scissors"
             color="#6A8D73"
             onPress={() => {
-              setPick("Scissors");
+              setUserPick("Scissors");
               generateComputerNumber();
             }}
           />
         </View>
       </View>
-      <Text>You choose: {pick}</Text>
+      <Text
+        //Här skriver jag in en testID för att kunna få fram just denna knappen
+        //när jag testar i jest.
+        testID="pick-test"
+      >
+        You choose: {userPick}
+      </Text>
       <Text>Computer choose: {computerPick} </Text>
-
       <Text>Winner: {winner}</Text>
     </View>
   );
