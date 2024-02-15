@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Image, Button, Alert } from "react-native";
+import { Text, View, StyleSheet, Image, Button } from "react-native";
 import { useState, useEffect } from "react";
 
 export default function Game() {
