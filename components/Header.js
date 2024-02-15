@@ -6,7 +6,7 @@ export default function Header() {
       <Text style={styles.headerMainText}>Rock Paper Scissors</Text>
       <Text style={styles.headerSecondText}>
         Welcome to the viritual rock, paper, scissors game where you play
-        against the computer. Please make a choice below to start a new game
+        against the computer. Please make a choice below and begin playing
       </Text>
     </View>
   );
